@@ -19,7 +19,9 @@
 	默认情况redis内存存储的是msgpack格式的数据，可以被redis lua解析与操作
 ## 分布式下的一致性
 	union保证数据一致性的方法是用redis lua作为存储过程，因为redis是单线程的
-
+## 微服务
+	微服务最近非常火，union可以非常方便的实现微服务，但除了俱乐部等我本人并不建议其他功能作为微服务实现
+	比如好友，聊天等，建议直接在主服务实现，完全没有必要作为微服务，因为游戏逻辑不像做web，关联性太强
 ## 整体目录
 	union
 		conf 配置
@@ -27,5 +29,14 @@
 		deps 依赖项目
 		log 日志，运行时产生
 		src 源码路径
+			common 框架代码
+			gmodel 全局model
+			proto pb产生的go代码
+			idl 中间语言
+				pb pb代码
+				csv 引导代码，会根据csv内容自动生产go代码，不如错误码等			
+			server 服务器代码
+				auth 认证服
+				logic 逻辑服
 		tools 工具路径
 		main.go 入口
