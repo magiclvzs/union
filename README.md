@@ -1,5 +1,5 @@
 # union  
-	有疑问可联系qq：441707528   
+	有疑问欢迎加群：828958110   
 ## 什么是union
 	union是分布式的游戏服务器框架，自带认证服，逻辑服的部分实现，其中逻辑服采用Actor模型。
 ## 简单，简单，再简单
@@ -9,15 +9,16 @@
 	简单到不需要配置go路径
 	简单到union虽然是分布式架构，但你连ip都不需要配置
 ## 编译前准备
-	确定按照好go和python2.7
-	安装redis，union自带了，目录在tools/bin Redis-x64-3.2.100.msi
+	这版的开发环境为windows
+	编译union前需要按照3个软件
+	1 go
+	2 python2.7
+	3 redis，union自带了，目录在tools/bin Redis-x64-3.2.100.msi,安装后注意设置Path路径
 ## 1s编译
-	运行build.bat会要求选择pb的版本，选择后即可编译出可执行文件
+	运行build.bat会要求选择pb的版本，选择后即可编译出可执行文件，输入1可以直接运行可执行文件
 ## 1s运行
 	编译出exe后，运行run.bat，按照提示操作，如果没有启动redis，会自动运行redis-server
-## 测试前准备
-	由于测试脚本是基于python的，而python的pb需要先安装一个依赖库
-	到python按照目录的Scripts目录，运行pip install six
+	运行后，会要求选择服务器，请至少启动一个认证服和逻辑服，服务器会自动组网
 ## 1s测试
 	运行test.bat 会要求按照python的pb库，选择和服务器一样的版本就行
 	按照好后按照指令输入即可看到服务器返回值
@@ -37,10 +38,12 @@
 	其中pb格式用于存储大且不需要被redis lua解析的数据，比如战斗回放
 	默认情况redis内存存储的是msgpack格式的数据，可以被redis lua解析与操作
 ## 分布式下的一致性
-	union保证数据一致性的方法是用redis lua作为存储过程，因为redis是单线程的
+	union保证数据一致性的方法是用redis lua作为存储过程，因为redis是单线程的   
 ## 微服务
-	微服务最近非常火，union可以非常方便的实现微服务，但除了俱乐部等我本人并不建议其他功能作为微服务实现
-	比如好友，聊天等，建议直接在主服务实现，完全没有必要作为微服务，因为游戏逻辑不像做web，关联性太强
+	union可以非常方便的实现微服务   
+	不用配置etcd，不用写任何网络相关代码，union已经集成了服务发现，断线重连等   
+	同时union会自动发现负载最低的服务器   
+	没有grpc，union的微服务使用纯的tcp模式，同时会像grpc一样自动生成代码，不过生成的代码集成度更高，调用就像普通函数一样方便   
 ## 整体目录
 	union
 		conf 配置
@@ -81,6 +84,16 @@
 
 ## 消息处理
 	union的消息处理支持两种
+
+## 安装python依赖，运行测试代码
+	下载protobuf-matstr  https://github.com/google/protobuf
+	复制python目录和src目录到tools/bin目录
+	修改python目录下setup.py 在# Find the Protocol Compiler.这句下面添加protoc路径os.environ['PROTOC'] = "../protoc.exe"
+	
+	
+## 配置文件
+	配置文件必须有
+
 
 
 
